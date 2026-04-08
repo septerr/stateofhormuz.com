@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>State of Hormuz</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --oil: #0a0a0a;
+      --deep: #0d1117;
+      --water: #0e2233;
+      --tension: #c0392b;
+      --rust: #e74c3c;
+      --sand: #c9a84c;
+      --pale: #d4cfc8;
+      --dim: #6b7280;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--oil);
+      color: var(--pale);
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated water texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 120% 60% at 50% 100%, #0e2233 0%, transparent 70%),
+        radial-gradient(ellipse 80% 40% at 30% 110%, #091a28 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Scanline overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.08) 2px,
+        rgba(0, 0, 0, 0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .ticker {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--sand);
+      text-transform: uppercase;
+      border-top: 1px solid var(--sand);
+      border-bottom: 1px solid var(--sand);
+      padding: 0.4rem 2rem;
+      opacity: 0.7;
+    }
+
+    .question {
+      font-size: clamp(0.75rem, 2vw, 1rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .answer {
+      font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+      font-size: clamp(6rem, 22vw, 18rem);
+      line-height: 0.88;
+      color: var(--tension);
+      text-shadow:
+        0 0 40px rgba(192, 57, 43, 0.6),
+        0 0 120px rgba(192, 57, 43, 0.25),
+        4px 4px 0px #7b1a12;
+      animation: flicker 6s infinite;
+      letter-spacing: 0.03em;
+    }
+
+    @keyframes flicker {
+      0%, 95%, 100% { opacity: 1; }
+      96%            { opacity: 0.85; }
+      97%            { opacity: 1; }
+      98%            { opacity: 0.7; }
+      99%            { opacity: 1; }
+    }
+
+    .coordinates {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      color: var(--dim);
+      opacity: 0.5;
+    }
+
+    .status-row {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 1rem;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .stat-value {
+      font-size: 0.75rem;
+      color: var(--sand);
+    }
+
+    .stat-value.red {
+      color: var(--rust);
+    }
+
+    .divider {
+      width: 1px;
+      height: 2.5rem;
+      background: var(--dim);
+      opacity: 0.3;
+      align-self: center;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 1.5rem;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: var(--dim);
+      opacity: 0.35;
+      text-transform: uppercase;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="ticker">Strait of Hormuz &mdash; Status Report</div>
+
+    <div class="question">What is the state of Hormuz?</div>
+
+    <div class="answer">Not<br>Good</div>
+
+    <div class="coordinates">26&deg; 34&prime; N &nbsp;/&nbsp; 56&deg; 15&prime; E &nbsp;&mdash;&nbsp; Persian Gulf Chokepoint</div>
+
+    <div class="status-row">
+      <div class="stat">
+        <span class="stat-label">Threat Level</span>
+        <span class="stat-value red">Critical</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-label">Tanker Traffic</span>
+        <span class="stat-value red">Disrupted</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-label">Global Oil Supply</span>
+        <span class="stat-value red">At Risk</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-label">Naval Presence</span>
+        <span class="stat-value red">Elevated</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>stateofhormuz.com &nbsp;&mdash;&nbsp; live assessment</footer>
+
+</body>
+</html>
