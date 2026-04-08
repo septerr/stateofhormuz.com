@@ -98,6 +98,14 @@
       color: var(--dim);
     }
 
+    .subtitle {
+      font-size: clamp(0.7rem, 1.8vw, 1rem);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: -0.5rem;
+    }
+
     .answer {
       font-family: 'Bebas Neue', 'Arial Black', sans-serif;
       font-size: clamp(6rem, 22vw, 18rem);
@@ -173,6 +181,39 @@
       text-transform: uppercase;
       z-index: 1;
     }
+
+    .tip-btn {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.9rem;
+      background: rgba(10, 10, 10, 0.75);
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 2px;
+      color: #c9a84c;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .tip-btn:hover {
+      background: rgba(201, 168, 76, 0.15);
+      border-color: rgba(201, 168, 76, 0.8);
+      color: #f0d080;
+    }
+
+    .tip-btn svg {
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
   </style>
 </head>
 <body>
@@ -180,9 +221,8 @@
   <div class="wrapper">
     <div class="ticker">Strait of Hormuz &mdash; Status Report</div>
 
-    <div class="question">What is the state of Hormuz?</div>
-
-    <div class="answer">Not<br>Good</div>
+<div class="subtitle">State of Hormuz</div>
+<div class="answer">Not<br>Good</div>
 
     <div class="coordinates">26&deg; 34&prime; N &nbsp;/&nbsp; 56&deg; 15&prime; E &nbsp;&mdash;&nbsp; Persian Gulf Chokepoint</div>
 
@@ -210,6 +250,13 @@
   </div>
 
   <footer>stateofhormuz.com &nbsp;&mdash;&nbsp; live assessment</footer>
+
+  <a class="tip-btn" href="https://buymeacoffee.com/septerr" target="_blank" rel="noopener">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/>
+    </svg>
+    Buy me a coffee
+  </a>
 
 </body>
 </html>
