@@ -13,96 +13,139 @@
       padding: 0;
     }
 
-    :root {
-      --oil: #0a0a0a;
-      --deep: #0d1117;
-      --water: #0e2233;
-      --tension: #c0392b;
-      --rust: #e74c3c;
-      --sand: #c9a84c;
-      --pale: #d4cfc8;
-      --dim: #6b7280;
-    }
-
     html, body {
       height: 100%;
     }
 
     body {
-      background-color: var(--oil);
-      color: var(--pale);
-      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
+      text-align: center;
       position: relative;
+      overflow: hidden;
+      font-family: 'Share Tech Mono', monospace;
     }
 
-    /* Animated water texture */
-    body::before {
-      content: '';
+    /*
+     * TO USE A REAL PHOTO:
+     * Replace the entire .bg-image block below with:
+     *   background: url('hormuz.jpg') center center / cover no-repeat;
+     * and drop your image file next to this HTML file.
+     */
+    .bg-image {
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(ellipse 120% 60% at 50% 100%, #0e2233 0%, transparent 70%),
-        radial-gradient(ellipse 80% 40% at 30% 110%, #091a28 0%, transparent 60%);
-      pointer-events: none;
       z-index: 0;
+
+      /* Satellite-style: deep teal gulf water, tan/rust Arabian landmass */
+      background:
+        /* cloud wisps */
+        radial-gradient(ellipse 30% 15% at 70% 20%, rgba(255,255,255,0.07) 0%, transparent 100%),
+        radial-gradient(ellipse 20% 10% at 20% 75%, rgba(255,255,255,0.05) 0%, transparent 100%),
+        /* Iran coastline landmass — upper band */
+        linear-gradient(
+          to bottom,
+          #7a6040 0%,
+          #8b6f45 8%,
+          #6b5535 12%,
+          #1c4a5e 20%,       /* where water begins */
+          #1a5068 30%,
+          #166070 45%,
+          #0f5060 60%,
+          #0c3d50 75%,
+          #0a2e3d 85%,
+          #08202c 100%
+        );
+      /* Oman peninsula hint */
+      background-image:
+        radial-gradient(ellipse 40% 20% at 85% 78%, #7a5a30 0%, transparent 55%),
+        radial-gradient(ellipse 25% 12% at 12% 82%, #6b5535 0%, transparent 50%),
+        radial-gradient(ellipse 30% 15% at 70% 20%, rgba(255,255,255,0.07) 0%, transparent 100%),
+        radial-gradient(ellipse 20% 10% at 20% 75%, rgba(255,255,255,0.05) 0%, transparent 100%),
+        linear-gradient(
+          to bottom,
+          #7a6040 0%,
+          #8b6f45 8%,
+          #6b5535 12%,
+          #1c4a5e 20%,
+          #1a5068 30%,
+          #166070 45%,
+          #0f5060 60%,
+          #0c3d50 75%,
+          #0a2e3d 85%,
+          #08202c 100%
+        );
     }
 
-    /* Scanline overlay */
-    body::after {
+    /* Dark vignette so edges don't distract */
+    .bg-image::after {
       content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(0,0,0,0.65) 100%);
+    }
+
+    /* Semi-transparent overlay to ensure text contrast */
+    .overlay {
       position: fixed;
       inset: 0;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    /* Scanlines */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
       background: repeating-linear-gradient(
         0deg,
         transparent,
         transparent 2px,
-        rgba(0, 0, 0, 0.08) 2px,
-        rgba(0, 0, 0, 0.08) 4px
+        rgba(0,0,0,0.06) 2px,
+        rgba(0,0,0,0.06) 4px
       );
       pointer-events: none;
-      z-index: 10;
     }
 
     .wrapper {
       position: relative;
-      z-index: 1;
+      z-index: 3;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
+      gap: 1.5rem;
       padding: 2rem;
-      text-align: center;
     }
 
     .ticker {
       font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--sand);
+      letter-spacing: 0.25em;
+      color: #f0d080;
       text-transform: uppercase;
-      border-top: 1px solid var(--sand);
-      border-bottom: 1px solid var(--sand);
+      border-top: 1px solid rgba(240, 208, 128, 0.6);
+      border-bottom: 1px solid rgba(240, 208, 128, 0.6);
       padding: 0.4rem 2rem;
-      opacity: 0.7;
+      text-shadow: 0 0 12px rgba(240, 208, 128, 0.5);
     }
 
     .question {
       font-size: clamp(0.75rem, 2vw, 1rem);
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: rgba(255, 255, 255, 0.75);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.9);
     }
 
     .subtitle {
       font-size: clamp(0.7rem, 1.8vw, 1rem);
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: rgba(255, 255, 255, 0.45);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.9);
       margin-bottom: -0.5rem;
     }
 
@@ -110,11 +153,22 @@
       font-family: 'Bebas Neue', 'Arial Black', sans-serif;
       font-size: clamp(6rem, 22vw, 18rem);
       line-height: 0.88;
-      color: var(--tension);
-      text-shadow:
-        0 0 40px rgba(192, 57, 43, 0.6),
-        0 0 120px rgba(192, 57, 43, 0.25),
-        4px 4px 0px #7b1a12;
+      /* Scanline pattern clipped to the text shape */
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 1)   0px,
+        rgba(255, 255, 255, 1)   2px,
+        rgba(180, 220, 255, 0.4) 2px,
+        rgba(180, 220, 255, 0.4) 3px
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #ffffff; /* fallback */
+      filter:
+        drop-shadow(0 0 20px rgba(220, 50, 40, 0.9))
+        drop-shadow(0 0 60px rgba(220, 50, 40, 0.5))
+        drop-shadow(3px 3px 0px rgba(0,0,0,0.7));
       animation: flicker 6s infinite;
       letter-spacing: 0.03em;
     }
@@ -130,14 +184,14 @@
     .coordinates {
       font-size: 0.6rem;
       letter-spacing: 0.18em;
-      color: var(--dim);
-      opacity: 0.5;
+      color: rgba(255,255,255,0.45);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
 
     .status-row {
       display: flex;
       gap: 2.5rem;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
     }
 
     .stat {
@@ -151,23 +205,20 @@
       font-size: 0.55rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: rgba(255,255,255,0.45);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
     }
 
     .stat-value {
       font-size: 0.75rem;
-      color: var(--sand);
-    }
-
-    .stat-value.red {
-      color: var(--rust);
+      color: #e74c3c;
+      text-shadow: 0 0 8px rgba(231,76,60,0.7), 0 1px 4px rgba(0,0,0,0.9);
     }
 
     .divider {
       width: 1px;
       height: 2.5rem;
-      background: var(--dim);
-      opacity: 0.3;
+      background: rgba(255,255,255,0.2);
       align-self: center;
     }
 
@@ -176,10 +227,10 @@
       bottom: 1.5rem;
       font-size: 0.55rem;
       letter-spacing: 0.15em;
-      color: var(--dim);
-      opacity: 0.35;
+      color: rgba(255,255,255,0.3);
       text-transform: uppercase;
-      z-index: 1;
+      z-index: 3;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
     }
 
     .tip-btn {
@@ -191,23 +242,23 @@
       align-items: center;
       gap: 0.45rem;
       padding: 0.5rem 0.9rem;
-      background: rgba(10, 10, 10, 0.75);
-      border: 1px solid rgba(201, 168, 76, 0.45);
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(240, 208, 128, 0.4);
       border-radius: 2px;
-      color: #c9a84c;
+      color: #f0d080;
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       text-decoration: none;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
       transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
 
     .tip-btn:hover {
-      background: rgba(201, 168, 76, 0.15);
-      border-color: rgba(201, 168, 76, 0.8);
-      color: #f0d080;
+      background: rgba(240, 208, 128, 0.15);
+      border-color: rgba(240, 208, 128, 0.8);
+      color: #fff5cc;
     }
 
     .tip-btn svg {
@@ -217,6 +268,10 @@
   </style>
 </head>
 <body>
+
+  <div class="bg-image"></div>
+  <div class="overlay"></div>
+  <div class="scanlines"></div>
 
   <div class="wrapper">
     <div class="ticker">Strait of Hormuz &mdash; Status Report</div>
@@ -229,22 +284,22 @@
     <div class="status-row">
       <div class="stat">
         <span class="stat-label">Threat Level</span>
-        <span class="stat-value red">Critical</span>
+        <span class="stat-value">Critical</span>
       </div>
       <div class="divider"></div>
       <div class="stat">
         <span class="stat-label">Tanker Traffic</span>
-        <span class="stat-value red">Disrupted</span>
+        <span class="stat-value">Disrupted</span>
       </div>
       <div class="divider"></div>
       <div class="stat">
         <span class="stat-label">Global Oil Supply</span>
-        <span class="stat-value red">At Risk</span>
+        <span class="stat-value">At Risk</span>
       </div>
       <div class="divider"></div>
       <div class="stat">
         <span class="stat-label">Naval Presence</span>
-        <span class="stat-value red">Elevated</span>
+        <span class="stat-value">Elevated</span>
       </div>
     </div>
   </div>
@@ -253,7 +308,7 @@
 
   <a class="tip-btn" href="https://buymeacoffee.com/septerr" target="_blank" rel="noopener">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/>
+      <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2V3zM4 19h16v2H4z"/>
     </svg>
     Buy me a coffee
   </a>
